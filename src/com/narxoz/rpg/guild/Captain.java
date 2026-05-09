@@ -1,5 +1,7 @@
 package com.narxoz.rpg.guild;
 
+import java.util.List;
+
 /**
  * Guild officer responsible for orders and mission coordination.
  */
@@ -9,13 +11,17 @@ public class Captain extends GuildMember {
         super(name, mediator);
     }
 
-    public void issueOrder(String topic, String payload) {
-        // TODO: send a command message through the mediator.
+    public void issueOrder(GuildTopic topic, String payload) {
         getMediator().dispatch(topic, this, payload);
     }
 
     @Override
-    public void receive(String topic, GuildMember from, String payload) {
-        // TODO: react to a guild-hall message without calling another colleague directly.
+    protected List<GuildTopic> getSubscribedTopics() {
+        return List.of(GuildTopic.ORDER, GuildTopic.ROUTE, GuildTopic.HEALS, GuildTopic.SUPPLIES);
+    }
+
+    @Override
+    public void receive(GuildTopic topic, GuildMember from, String payload) {
+        System.out.printf("%n Captain[%s]► Received %s from %s \"%s\"", getName(), topic.toString().toLowerCase(), from.getName().toLowerCase(), payload);
     }
 }

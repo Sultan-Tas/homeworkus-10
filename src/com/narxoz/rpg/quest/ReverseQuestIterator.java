@@ -15,15 +15,15 @@ public class ReverseQuestIterator implements QuestIterator {
         this.cursor = snapshot.size() - 1;
     }
 
+
+
     @Override
     public boolean hasNext() {
-        // TODO: return true while the cursor still points at an unread quest.
-        return false;
+        return cursor > snapshot.size();
     }
 
     @Override
     public Quest next() {
-        // TODO: return the current quest and move the cursor backward.
-        return null;
+        return snapshot.get(cursor--);
     }
 }

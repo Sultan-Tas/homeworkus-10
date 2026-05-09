@@ -5,12 +5,12 @@ import java.util.List;
 /**
  * Traverses quests in arrival order.
  */
-public class OrderedQuestIterator implements QuestIterator {
+public class RewardSorterQuestIterator implements QuestIterator {
 
     private final List<Quest> snapshot;
     private int cursor;
 
-    public OrderedQuestIterator(QuestLog questLog) {
+    public RewardSorterQuestIterator(QuestLog questLog) {
         this.snapshot = questLog.snapshot();
         this.cursor = 0;
     }

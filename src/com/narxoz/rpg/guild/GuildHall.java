@@ -10,23 +10,29 @@ import java.util.Map;
  */
 public class GuildHall implements GuildMediator {
 
-    private final Map<String, List<GuildMember>> membersByTopic = new HashMap<>();
+    private final Map<GuildTopic, List<GuildMember>> membersByTopic = new HashMap<>();
 
     @Override
     public void register(GuildMember member) {
-        // TODO: add the member to the topic lists it should receive.
+        for(GuildTopic topic : member.getSubscribedTopics()){
+            addSubscriber(topic, member);
+        }
     }
 
     @Override
-    public void dispatch(String topic, GuildMember from, String payload) {
-        // TODO: notify registered members for the topic without direct colleague calls.
+    public void dispatch(GuildTopic topic, GuildMember from, String payload) {
+        for(GuildMember member : membersByTopic.get(topic)) {
+            if(member != from){
+                member.receive(topic, from, payload);
+            }
+        }
     }
 
-    protected void addSubscriber(String topic, GuildMember member) {
+    protected void addSubscriber(GuildTopic topic, GuildMember member) {
         membersByTopic.computeIfAbsent(topic, key -> new ArrayList<>()).add(member);
     }
 
-    protected List<GuildMember> subscribersFor(String topic) {
+    protected List<GuildMember> subscribersFor(GuildTopic topic) {
         return membersByTopic.getOrDefault(topic, List.of());
     }
 }

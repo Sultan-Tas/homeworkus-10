@@ -1,5 +1,7 @@
 package com.narxoz.rpg;
 
+import com.narxoz.rpg.combatant.Hero;
+
 /**
  * Entry point for Homework 10 — The Adventurers' Guild: Iterator + Mediator.
  *
@@ -9,7 +11,10 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("=== Homework 10 Demo: Iterator + Mediator ===");
+        Hero Asgor = new Hero("Asgor", 500, 100, 60);
+        Hero Sans = new Hero("Sans", 1, 1, 1);
 
+        
         // 1. Create at least 2 heroes.
         // 2. Build a QuestLog with at least 5 quests of mixed priority.
         // 3. Register at least 4 GuildMembers (Quartermaster, Scout, Healer, Captain) on the GuildHall.
