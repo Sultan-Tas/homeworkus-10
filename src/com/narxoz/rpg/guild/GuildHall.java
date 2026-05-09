@@ -21,11 +21,14 @@ public class GuildHall implements GuildMediator {
 
     @Override
     public void dispatch(GuildTopic topic, GuildMember from, String payload) {
+        int i = 0;
         for(GuildMember member : membersByTopic.get(topic)) {
             if(member != from){
+                i++;
                 member.receive(topic, from, payload);
             }
         }
+        System.out.println("► " + from.getName() + " notified " + i + " members");
     }
 
     protected void addSubscriber(GuildTopic topic, GuildMember member) {

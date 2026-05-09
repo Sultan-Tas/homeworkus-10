@@ -15,7 +15,7 @@ public class PriorityQuestIterator implements QuestIterator {
         QuestPriority minimum = threshold == null ? QuestPriority.LOW : threshold;
         this.snapshot = new ArrayList<>();
         for (Quest quest : questLog.snapshot()) {
-            if (quest.getPriority().ordinal() >= minimum.ordinal()) {
+            if (quest.getPriority().ordinal() >= minimum.ordinal() || quest.isUrgent()) {
                 snapshot.add(quest);
             }
         }
